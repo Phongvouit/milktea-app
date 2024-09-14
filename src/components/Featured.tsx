@@ -4,7 +4,7 @@ const Featured = () => {
   return (
     <section className="md:mx-auto my-10 flex w-full flex-col lg:max-w-screen-xl px-4 xl:px-0 py-6 md:flex-row">
       <div className="mb-8 md:mb-0 md:w-1/2 relative lg:h-[520px] pt-[80%] lg:pt-0">
-        <Image className="object-cover" src="/images/banner1.jpg" alt="" fill />
+        <Image className="object-cover" src="/images/banner.jpg" alt="" fill />
       </div>
       <div className="md:w-1/2 md:pl-10 flex items-center">
         <div className="">

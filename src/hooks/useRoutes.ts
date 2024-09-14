@@ -1,8 +1,10 @@
 import { useMemo } from "react";
 import { usePathname } from "next/navigation";
+import { useParams } from "next/navigation";
 
 const useRoutes = () => {
   const pathname = usePathname();
+  const params = useParams();
 
   const routes = useMemo(
     () => [
@@ -13,8 +15,8 @@ const useRoutes = () => {
       },
       {
         label: "SẢN PHẨM",
-        href: "/menu",
-        active: pathname === "/menu",
+        href: "/menu/thuc-uong",
+        active: pathname === `/menu/${params.category}`,
       },
       {
         label: "LIÊN HỆ",
