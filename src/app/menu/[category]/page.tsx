@@ -1,20 +1,22 @@
-"use client"
-import Banner from "@/components/Banner"
 import FilterProduct from "@/components/FilterProduct";
 import Heading from "@/components/Heading";
 import ListProduct from "@/components/ListProduct";
-import useActiveBanner from "@/hooks/useActiveBanner";
+import axios from "axios";
 
-const CategoryPage = () => {
-  const activeBanner = useActiveBanner();
+const getData = async () => {
+  const res = await axios.get("http://localhost:3000/api/categories");
+  return res.data;
+};
+
+const CategoryPage = async () => {
+  const menu = await getData();
   return (
     <div>
-      <Banner banner={activeBanner!}/>
-      <Heading menu={activeBanner!}/>
-      <FilterProduct/>
-      <ListProduct/>
+      <Heading menu={menu} />
+      <FilterProduct />
+      <ListProduct />
     </div>
-  )
-}
+  );
+};
 
-export default CategoryPage
+export default CategoryPage;
