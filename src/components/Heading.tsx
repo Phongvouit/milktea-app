@@ -54,51 +54,6 @@ const Heading = ({ menu }: { menu: Category[] }) => {
                 <Link href={`/menu/${item.slug}`}>{item.title}</Link>
               </li>
             ))}
-            {/* <li
-            className={clsx(
-              `
-                 px-[25px]
-                 hover: border-y 
-                 hover:border-green-800 
-                 hover:text-green-800  
-            `
-              // menu.slug === "thuc-uong"
-              //   ? "border-y border-green-800 text-green-800"
-              //   : ""
-            )}
-          >
-            <Link href="/menu/thuc-uong">Thức uống</Link>
-          </li>
-          <li
-            className={clsx(
-              `
-             px-[25px]
-             hover: border-y 
-             hover:border-green-800 
-             hover:text-green-800 
-        `
-              // menu.slug === "snacks"
-              //   ? "border-y border-green-800 text-green-800"
-              //   : ""
-            )}
-          >
-            <Link href="/menu/snacks">Snacks</Link>
-          </li>
-          <li
-            className={clsx(
-              `
-             px-[25px]
-             hover: border-y 
-             hover:border-green-800 
-             hover:text-green-800
-        `
-              // menu.slug === "bakery"
-              //   ? "border-y border-green-800 text-green-800"
-              //   : ""
-            )}
-          >
-            <Link href="/menu/bakery">Bakery</Link>
-          </li> */}
           </ul>
         </div>
       </div>

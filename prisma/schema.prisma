@@ -20,7 +20,20 @@ model Category {
   img      String
   slug     String   @unique
 
-  products Product[] 
+  products Product[]
+  types    Type[]
+}
+
+model Type {
+  id       String   @id @default(cuid())
+  createAt DateTime @default(now())
+  title    String
+  tslug    String   @unique
+
+  category Category @relation(fields: [catSlug], references: [slug])
+  catSlug  String
+
+  products Product[]
 }
 
 model Product {
@@ -32,16 +45,19 @@ model Product {
   img      String
   price    Int
 
-  category    Category @relation(fields: [catSlug], references: [slug])
-  catSlug     String
+  category Category @relation(fields: [catSlug], references: [slug])
+  catSlug  String
+
+  type     Type   @relation(fields: [typeSlug], references: [tslug])
+  typeSlug String
 }
 
 model Order {
-  id       String   @id @default(cuid())
-  createAt DateTime @default(now())
-  updateAt DateTime @updatedAt
-  price Int
-  products Json[]
-  status String
-  intent_id String? @unique
+  id        String   @id @default(cuid())
+  createAt  DateTime @default(now())
+  updateAt  DateTime @updatedAt
+  price     Int
+  products  Json[]
+  status    String
+  intent_id String?  @unique
 }
