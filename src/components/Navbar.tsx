@@ -4,6 +4,7 @@ import useRoutes from "@/hooks/useRoutes";
 import CartIcon from "./CartIcon";
 import Image from "next/image";
 import clsx from "clsx";
+import UserLinks from "./UserLinks";
 const Navbar = () => {
   const routes = useRoutes();
   return (
@@ -66,9 +67,7 @@ const Navbar = () => {
             </ul>
             <ul className="mt-4 flex md:mt-0 items-center gap-2">
               <li>
-                <Link href="/" className="font-bold text-sm">
-                  Đăng nhập
-                </Link>
+                <UserLinks />
               </li>
               <li>
                 <CartIcon />

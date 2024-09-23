@@ -1,7 +1,20 @@
+"use client"
 
 import Image from "next/image";
+import { signIn } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const LoginPage = () => {
+  const {status} = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if(status === "authenticated") {
+      router.push("/")
+    }
+  },[status, router])
   return (
     <div>
       <div className="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto my-10 max-w-sm lg:max-w-4xl">
@@ -17,9 +30,9 @@ const LoginPage = () => {
             Phúc Long xin chào
           </h2>
           <p className="text-lg text-gray-600 text-center">Đăng nhập</p>
-          <a
-            href="#"
-            className="flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100"
+          <button
+            className=" w-full flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100"
+            onClick={() => signIn("google")}
           >
             <div className="px-4 py-3">
               <svg className="h-6 w-6" viewBox="0 0 40 40">
@@ -44,7 +57,7 @@ const LoginPage = () => {
             <h1 className="px-4 py-3 w-5/6 text-center text-gray-600 font-bold">
               Sign in with Google
             </h1>
-          </a>
+          </button>
           <div className="mt-4 flex items-center justify-between">
             <span className="border-b w-1/5 lg:w-1/4"></span>
             <a href="#" className="text-xs text-center text-gray-500 uppercase">
