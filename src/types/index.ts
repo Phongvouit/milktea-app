@@ -7,6 +7,10 @@ export type Menu = {
   img?: string;
 };
 
+export type ProductType = Product & {
+  option?: { title: string; additionalPrice: number };
+};
+
 export type FullOrderItemType = Item & {
   product: Product;
 };
