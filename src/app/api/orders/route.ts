@@ -1,4 +1,3 @@
-// import { prisma } from "@/utils/connect";
 import { NextResponse } from "next/server";
 import { getAuthSession } from "@/utils/auth";
 import { prisma } from "@/utils/connect";
@@ -9,7 +8,15 @@ export const GET = async () => {
   if (session) {
     try {
       if (session.user.isAdmin) {
-        const orders = await prisma.order.findMany();
+        const orders = await prisma.order.findMany({
+          include: {
+            items: {
+              include: {
+                product: true,
+              },
+            },
+          },
+        });
         return new NextResponse(JSON.stringify(orders), { status: 200 });
       }
       const orders = await prisma.order.findMany({
@@ -17,7 +24,11 @@ export const GET = async () => {
           userEmail: session.user.email!,
         },
         include: {
-          items: true,
+          items: {
+            include: {
+              product: true,
+            },
+          },
         },
       });
       return new NextResponse(JSON.stringify(orders), { status: 200 });

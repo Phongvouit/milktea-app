@@ -24,7 +24,7 @@ const useRoutes = () => {
         active: pathname === "/contact",
       },
     ],
-    [pathname]
+    [pathname, params]
   );
 
   return routes;

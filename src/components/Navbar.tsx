@@ -65,7 +65,7 @@ const Navbar = () => {
                 </li>
               ))}
             </ul>
-            <ul className="mt-4 flex md:mt-0 items-center gap-2">
+            <ul className="mt-4 flex md:mt-0 items-center gap-4">
               <li>
                 <UserLinks />
               </li>

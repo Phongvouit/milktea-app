@@ -28,7 +28,7 @@ const Slider = () => {
     return () => clearInterval(interval);
   }, []);
   return (
-    <div className="w-full lg:h-[456px] relative pt-[50%] lg:pt-0">
+    <div className="w-full z-10 lg:h-[456px] relative pt-[50%] lg:pt-0">
       <Image
         src={data[currentSlide].image}
         alt="slider"

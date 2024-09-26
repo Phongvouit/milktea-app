@@ -1,6 +1,7 @@
 import { Product } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
+import { convertPrice } from "@/utils/convertPrice";
 
 const ItemProduct = ({product}: {product: Product}) => {
   return (
@@ -20,7 +21,7 @@ const ItemProduct = ({product}: {product: Product}) => {
         <p className="mb-[15px] text-center text-[14px] leading-3 font-normal text-[#171717]">
           {product.desc}
         </p>
-        <p className="mb-[15px] text-lg font-black text-green-800">{product.price} đ</p>
+        <p className="mb-[15px] text-lg font-black text-green-800">{convertPrice(product.price)}</p>
         <Link href="/product/1">
           <button className="rounded-md border border-green-800 px-4 py-1 text-green-800 hover:bg-green-800 hover:text-white">
             Đặt hàng
