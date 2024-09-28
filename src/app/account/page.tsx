@@ -1,8 +1,17 @@
 "use client";
 import LayoutUser from "@/components/LayoutUser";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const AccountPage = () => {
+  const { status } = useSession();
+  const router = useRouter();
+
+  if (status === "unauthenticated") {
+    router.push("/");
+  }
+
   return (
     <LayoutUser>
       <section className="bg-white p-4 rounded-md">

@@ -18,3 +18,25 @@ export type FullOrderItemType = Item & {
 export type FullOrderType = Order & {
   items: FullOrderItemType[];
 };
+
+export type CartItemType = {
+  id: string;
+  title: string;
+  img: string;
+  desc: string;
+  price: number;
+  size: string;
+  quantity: number;
+};
+
+export type CartType = {
+  products: CartItemType[];
+  totalItems: number;
+  totalPrice: number;
+};
+
+export type ActionTypes = {
+  // addToSameCart: (item: CartItemType) => void;
+  addToCart: (item: CartItemType) => void;
+  removeFromCart: (item: CartItemType) => void;
+};

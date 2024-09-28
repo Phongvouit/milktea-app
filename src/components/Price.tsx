@@ -3,10 +3,16 @@ import { ProductType } from "@/types";
 import { convertPrice } from "@/utils/convertPrice";
 import clsx from "clsx";
 import { useMemo, useState } from "react";
-
+import { useCartStore } from "@/utils/store";
+import { toast } from "react-toastify";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 const Price = ({ product }: { product: ProductType }) => {
+  const {status} = useSession();
+  const router = useRouter();
   const [size, setSize] = useState("regular size");
   const [quantity, setQuantity] = useState(1);
+  const { addToCart } = useCartStore();
 
   const totalPrice = useMemo(() => {
     if (size === "big size") {
@@ -14,6 +20,25 @@ const Price = ({ product }: { product: ProductType }) => {
     }
     return product.price * quantity;
   }, [size, product, quantity]);
+
+  const handleAddToCart = () => {
+    if(status === "unauthenticated") {
+      router.push("/login")
+      toast.success("Vui lòng đăng nhập!")
+    } else {
+      addToCart({
+        id: product.id,
+        title: product.title,
+        img: product.img,
+        desc: product.desc,
+        price: totalPrice,
+        size: size,
+        quantity: quantity,
+      });
+      toast.success("Đã thêm sản phẩm vào giỏ hàng");
+    }
+  };
+
   return (
     <div>
       <div className="flex flex-col mt-6 pb-5 border-b-2 border-gray-200 mb-5">
@@ -118,7 +143,10 @@ const Price = ({ product }: { product: ProductType }) => {
         <span className="title-font font-medium text-2xl text-green-800">
           {convertPrice(totalPrice)}
         </span>
-        <button className="flex ml-auto text-green-800 bg-white border border-green-800 py-2 px-6 focus:outline-none hover:bg-green-800 rounded hover:text-white">
+        <button
+          className="flex ml-auto text-green-800 bg-white border border-green-800 py-2 px-6 focus:outline-none hover:bg-green-800 rounded hover:text-white"
+          onClick={handleAddToCart}
+        >
           Đặt hàng
         </button>
       </div>
