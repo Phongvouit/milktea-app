@@ -8,13 +8,32 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 const CartPage = () => {
-  const {status} = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
   const { products, totalPrice } = useCartStore();
 
   if (status === "unauthenticated") {
     router.push("/login");
   }
+
+  const handleCheckout = async () => {
+    try {
+      const res = await fetch("http://localhost:3000/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          price: totalPrice,
+          status: "Đang xử lý",
+          email: session?.user.email,
+          items: products,
+        }),
+      });
+      const data = await res.json();
+      router.push(`/pay/${data.id}`)
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className="w-full">
@@ -39,8 +58,13 @@ const CartPage = () => {
                   alt=""
                 />
               </div>
-              <p className="message my-3 text-gray-600 text-sm">Bạn chưa có thông tin giỏ hàng</p>
-              <Link href="/menu/thuc-uong" className="back bg-yellow-400 py-2 px-4 text-black text-sm text-center rounded-sm">
+              <p className="message my-3 text-gray-600 text-sm">
+                Bạn chưa có thông tin giỏ hàng
+              </p>
+              <Link
+                href="/menu/thuc-uong"
+                className="back bg-yellow-400 py-2 px-4 text-black text-sm text-center rounded-sm"
+              >
                 Tiếp tục mua sắm
               </Link>
             </div>
@@ -64,7 +88,10 @@ const CartPage = () => {
               </p>
             </div>
           </div>
-          <button className="mt-6 w-full rounded-md bg-green-800 py-1.5 font-medium text-blue-50 hover:bg-blue-600">
+          <button
+            className="mt-6 w-full rounded-md bg-green-800 py-1.5 font-medium text-blue-50 hover:bg-blue-600"
+            onClick={handleCheckout}
+          >
             Thanh toán
           </button>
         </div>
