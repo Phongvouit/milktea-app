@@ -2,7 +2,9 @@
 const nextConfig = {
     images: {
         domains: [
-            "phuclong.com.vn"
+            "phuclong.com.vn",
+            "res.cloudinary.com",
+            "placehold.co"
         ]
     }
 };

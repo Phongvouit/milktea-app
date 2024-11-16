@@ -4,6 +4,7 @@ import { FaRegUser } from "react-icons/fa";
 import { AiOutlineProduct } from "react-icons/ai";
 import { IoLocationOutline } from "react-icons/io5";
 import { RiLogoutBoxLine } from "react-icons/ri";
+import { RiMessengerLine } from "react-icons/ri";
 import { usePathname } from "next/navigation";
 
 const useUserRoutes = () => {
@@ -27,6 +28,12 @@ const useUserRoutes = () => {
         href: "/address",
         icon: IoLocationOutline,
         active: pathname === "/address",
+      },
+      {
+        label: "Hỗ trợ khách hàng",
+        href: "/chat",
+        icon: RiMessengerLine,
+        active: pathname === "/chat"
       },
       {
         label: "Đăng xuất",

@@ -1,4 +1,11 @@
-import { Order, Item, Product } from "@prisma/client";
+import {
+  Order,
+  Item,
+  Product,
+  Conversation,
+  User,
+  Message,
+} from "@prisma/client";
 
 export type Menu = {
   id: number;
@@ -39,4 +46,12 @@ export type ActionTypes = {
   // addToSameCart: (item: CartItemType) => void;
   addToCart: (item: CartItemType) => void;
   removeFromCart: (item: CartItemType) => void;
+};
+
+export type FullConversationType = Conversation & {
+  users: User[];
+};
+
+export type FullMessageType = Message & {
+  sender: User;
 };
