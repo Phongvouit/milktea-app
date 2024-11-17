@@ -12,7 +12,6 @@ export const POST = async (req: Request) => {
     //Lấy userId từ dữ liệu body để xác định người dùng thứ hai (đối tượng của cuộc trò chuyện).
     const { userId } = body;
 
-
     //Nếu không có currentUser.id hoặc currentUser.email, nghĩa là người dùng chưa xác thực, nên trả về phản hồi HTTP 401 (Unauthorized) kèm thông báo lỗi.
     if (!currentUser?.id || !currentUser?.email) {
       return new NextResponse(JSON.stringify({ message: "Unauthorized" }), {

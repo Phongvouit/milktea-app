@@ -50,6 +50,7 @@ export type ActionTypes = {
 
 export type FullConversationType = Conversation & {
   users: User[];
+  messages: Message[];
 };
 
 export type FullMessageType = Message & {

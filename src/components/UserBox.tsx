@@ -9,7 +9,9 @@ interface UserBoxProps {
 }
 
 const UserBox: React.FC<UserBoxProps> = ({ data }) => {
+
   const router = useRouter();
+
 
   const handleClick = useCallback(() => {
     axios
@@ -18,6 +20,7 @@ const UserBox: React.FC<UserBoxProps> = ({ data }) => {
       })
       .then((data) => router.push(`/admin/chat/${data.data?.id}`));
   }, [data, router]);
+
 
   return (
     <div
@@ -33,7 +36,7 @@ const UserBox: React.FC<UserBoxProps> = ({ data }) => {
       </div>
       <div className="flex-1">
         <h2 className="text-lg font-semibold">{data?.name}</h2>
-        <p className="text-gray-600">Hoorayy!!</p>
+        <p className="text-gray-600">!saddsa</p>
       </div>
     </div>
   );

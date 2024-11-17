@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/utils/connect";
 import getCurrentUser from "@/app/actions/getCurrentUser";
+import { pusherServer } from "@/utils/pusher";
 
 export const POST = async (req: Request) => {
   try {
@@ -25,10 +26,13 @@ export const POST = async (req: Request) => {
           },
         },
       },
+      include: {
+        sender: true,
+      }
     });
 
     //Cập nhật thời gian tin nhắn cuối cùng và liên kết tin nhắn mới với cuộc hội thoại.
-    await prisma.conversation.update({
+    const updatedConversation = await prisma.conversation.update({
       where: {
         id: conversationId,
       },
@@ -45,6 +49,26 @@ export const POST = async (req: Request) => {
         messages: true,
       },
     });
+
+    //Server phát ra sự kiện real-time có tên là "messages:new" với dữ liệu newMessage đến client đã đăng ký kênh conversationId
+    await pusherServer.trigger(conversationId, "messages:new", newMessage);
+
+    //Tìm tin nhắn cuối cùng trong danh sách tin nhắn của cuộc trò chuyện updatedConversation.
+    const lastMessage =
+      updatedConversation.messages[updatedConversation.messages.length - 1];
+
+    //Server phát ra sự kiện real-time có tên là "message:update" với dữ liệu lastMessage đến client đã đăng ký kênh conversationId
+    await pusherServer.trigger(conversationId!, "message:update", lastMessage)
+
+    //Server phát ra sự kiện real-time có tên là "conversation:updated" với dữ liệu conversationId, lastMessage đến client đã đăng ký kênh user.email
+    updatedConversation.users.map((user) => {
+      pusherServer.trigger(user.email!, "conversation:update", {
+        id: conversationId,
+        messages: [lastMessage],
+      });
+    });
+
+
 
     //Trả về phản hồi thành công với dữ liệu tin nhắn mới.
     return new NextResponse(JSON.stringify(newMessage), { status: 200 });
