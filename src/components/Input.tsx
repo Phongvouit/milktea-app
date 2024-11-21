@@ -5,7 +5,7 @@ import clsx from "clsx";
 
 interface InputProps {
   id: string;
-  placeholder: string;
+  placeholder?: string;
   type?: string;
   required?: boolean;
   register: UseFormRegister<FieldValues>;

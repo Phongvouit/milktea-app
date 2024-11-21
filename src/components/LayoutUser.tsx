@@ -2,8 +2,9 @@
 import Image from "next/image";
 import useUserRoutes from "@/hooks/useUserRoutes";
 import UserMenuItem from "./UserMenuItem";
+import { User } from "@prisma/client";
 
-const LayoutUser = ({ children }: { children: React.ReactNode }) => {
+const LayoutUser = ({ children, user }: { children: React.ReactNode, user?: User }) => {
   const routes = useUserRoutes();
   return (
     <div className="w-screen bg-gray-100">
@@ -25,7 +26,7 @@ const LayoutUser = ({ children }: { children: React.ReactNode }) => {
               </div>
               <div className="flex ml-3 flex-col">
                 <h3 className="text-xs text-gray-500">Tài khoản của</h3>
-                <p className="text-lg font-medium">Vo Phong</p>
+                <p className="text-lg font-medium uppercase">{user?.name}</p>
               </div>
             </div>
 
