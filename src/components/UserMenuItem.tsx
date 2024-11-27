@@ -24,11 +24,12 @@ const UserMenuItem: React.FC<UserMenuItemProps> = ({
     }
   };
   return (
-    <Link
-      href={href}
-      onClick={handleClick}
-      className={clsx(
-        `
+    <div className="flex flex-col">
+      <Link
+        href={href}
+        onClick={handleClick}
+        className={clsx(
+          `
         flex 
       cursor-pointer 
       items-center 
@@ -45,12 +46,14 @@ const UserMenuItem: React.FC<UserMenuItemProps> = ({
       hover:border-l-green-800 
       hover:text-green-800
       `,
-        active && "border-l-4 border-l-green-800 text-green-800"
-      )}
-    >
-      <Icon size={20} className="mr-4 align-middle" />
-      {label}
-    </Link>
+          active && "border-l-4 border-l-green-800 text-green-800"
+        )}
+      >
+        <Icon size={20} className="mr-4 align-middle" />
+        {label}
+      </Link>
+      <span className="block border-b mt-1 w-full md:hidden border-b-green-800"></span>
+    </div>
   );
 };
 

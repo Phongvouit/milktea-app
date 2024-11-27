@@ -8,8 +8,8 @@ const LayoutUser = ({ children, user }: { children: React.ReactNode, user?: User
   const routes = useUserRoutes();
   return (
     <div className="w-screen bg-gray-100">
-      <div className="max-w-screen-xl mx-auto px-4 flex">
-        <div className="h-screen w-3/12 pb-10">
+      <div className="max-w-screen-xl mx-auto px-4 flex flex-col md:flex-row">
+        <div className="md:h-screen w-full md:w-3/12 pb-10">
           <div className="flex h-full flex-grow flex-col pt-5">
             <div className="flex mt-5 items-center px-4">
               <div
@@ -48,7 +48,7 @@ const LayoutUser = ({ children, user }: { children: React.ReactNode, user?: User
             </div>
           </div>
         </div>
-        <div className="w-9/12 mt-10">
+        <div className="w-full md:w-9/12 mt-0 md:mt-10">
           <div className="h-full">{children}</div>
         </div>
       </div>

@@ -4,7 +4,8 @@ const nextConfig = {
         domains: [
             "phuclong.com.vn",
             "res.cloudinary.com",
-            "placehold.co"
+            "placehold.co",
+            "hcm.fstorage.vn"
         ]
     }
 };

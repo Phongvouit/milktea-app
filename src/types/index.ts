@@ -56,3 +56,9 @@ export type FullConversationType = Conversation & {
 export type FullMessageType = Message & {
   sender: User;
 };
+
+export type Tab = {
+  id: number;
+  href: string;
+  value: string;
+};

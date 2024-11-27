@@ -7,9 +7,11 @@ import Input from "@/components/Input";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { useState } from "react";
 
 const SettingForm = ({ currentUser }: { currentUser: User }) => {
-  const router = useRouter()
+  const router = useRouter();
+  const [file, setFile] = useState<File>();
   const {
     register,
     handleSubmit,
@@ -23,25 +25,41 @@ const SettingForm = ({ currentUser }: { currentUser: User }) => {
     },
   });
 
-  const imageUrl = watch("image")
+  const imageUrl = watch("image");
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    axios.put("http://localhost:3000/api/settings", data)
-    .then(() => {
-      router.refresh()
-      toast.success("Cập nhật thành công")
-    })
-    .catch(() => toast.error("Something went wrong"))
-  }
+    axios
+      .put("http://localhost:3000/api/settings", data)
+      .then(() => {
+        router.refresh();
+        toast.success("Cập nhật thành công");
+      })
+      .catch(() => toast.error("Something went wrong"));
+  };
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]; // Lấy tệp đầu tiên
     if (file) {
-      const previewUrl = URL.createObjectURL(file);
-      setValue("image", previewUrl)
+      setFile(file);
+      const url = await upload();
+      setValue("image", url)
     } else {
       console.error("No file selected or invalid file input.");
     }
+  };
+
+  const upload = async () => {
+    const data = new FormData();
+    data.append("file", file!);
+    data.append("upload_preset", "qg6elrqk");
+
+    const res = await fetch("https://api.cloudinary.com/v1_1/dcioqvstr/image/upload", {
+      method: "POST",
+      body: data,
+    });
+
+    const resData = await res.json();
+    return resData.url;
   };
 
   return (
@@ -59,32 +77,29 @@ const SettingForm = ({ currentUser }: { currentUser: User }) => {
             w-40
             "
             >
-              <Image alt="Avatar" src={imageUrl || "/images/profile.png"} fill />
+              <Image
+                alt="Avatar"
+                src={imageUrl || "/images/profile.png"}
+                fill
+              />
             </div>
             <div className="w-40 text-center mt-4">
-            <label className="bg-green-800 p-2 text-white cursor-pointer w-20">
-              Cập nhật
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleFileChange}
-                hidden
-              />
-            </label>
+              <label className="bg-green-800 p-2 text-white cursor-pointer w-20">
+                Cập nhật
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                  hidden
+                />
+              </label>
             </div>
-            
           </div>
           <div className="md:flex-1 mt-2 mb:mt-0 md:px-3">
             <div className="mb-4">
               <label className="block uppercase tracking-wide text-xs font-bold mb-1">
-                {currentUser?.name}
+                Họ&tên
               </label>
-              {/* <input
-                className="w-full p-3 border border-solid border-gray-300 focus:outline-none focus:border-green-800 rounded-md"
-                type="text"
-                name="name"
-                placeholder="Acme Mfg. Co."
-              /> */}
               <Input id="name" register={register} required errors={errors} />
             </div>
             <div className="md:flex mb-4">
