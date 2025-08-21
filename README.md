@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ☕ Coffee Shop App
 
-## Getting Started
+## 📌 Mô tả dự án
+Ứng dụng **Coffee Shop** cho phép người dùng:  
+- Đặt đồ uống và thức ăn trực tuyến  
+- Thêm vào giỏ hàng  
+- Thanh toán trực tiếp qua **Stripe**  
+- Quản lý đơn hàng  
 
-First, run the development server:
+Hệ thống được thiết kế với kiến trúc hiện đại, sử dụng **Next.js 13 (App Router)** để kết hợp cả **frontend** và **backend** trong cùng một ứng dụng.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ⚙️ Công nghệ
+- **Next.js 13 (App Router)** → xây dựng UI + backend API routes  
+- **PostgreSQL** → lưu trữ dữ liệu sản phẩm, người dùng, đơn hàng  
+- **Prisma ORM** → quản lý database schema và query đến PostgreSQL  
+- **Auth.js (NextAuth)** → xác thực & quản lý session người dùng  
+- **Stripe** → xử lý thanh toán online  
+- **React Query** → quản lý data fetching (sản phẩm, đơn hàng, giỏ hàng)  
+- **Zustand** → quản lý state client (cart, user, UI state)  
+- **Tailwind CSS + Shadcn UI** → UI components hiện đại  
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🏗️ Chức năng chính
 
-## Learn More
+### 🔑 Authentication
+- Đăng ký / Đăng nhập bằng **Auth.js**  
+- Quản lý session người dùng  
+- Phân quyền (user / admin)  
 
-To learn more about Next.js, take a look at the following resources:
+### 🍽️ Đặt món & giỏ hàng
+- Xem danh sách sản phẩm (coffee, đồ ăn, combo)  
+- Thêm / xóa sản phẩm vào giỏ hàng (**Zustand** quản lý state)  
+- Đồng bộ giỏ hàng theo user (**React Query + API routes**)  
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 💳 Thanh toán
+- Tích hợp **Stripe Checkout** để thanh toán đơn hàng  
+- Hiển thị trạng thái thanh toán (success, failed, pending)  
+- Lưu lịch sử đơn hàng sau khi thanh toán thành công  
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 📦 Quản lý đơn hàng
+- **Người dùng**: theo dõi trạng thái đơn hàng  
+- **Admin**: quản lý sản phẩm, xác nhận / hoàn thành đơn hàng  
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 🎨 UI/UX
+- **Trang chủ**: danh mục sản phẩm nổi bật  
+- **Trang sản phẩm**: chi tiết sản phẩm, thêm vào giỏ hàng  
+- **Giỏ hàng**: xem và cập nhật giỏ hàng trước khi thanh toán  
+- **Thanh toán**: checkout bằng **Stripe**  
+- **Dashboard admin**: quản lý menu, người dùng, đơn hàng  
